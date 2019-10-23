@@ -1,0 +1,19 @@
+{
+    "require": {
+        "php": "^7.1",
+        "ext-curl": "^7.1",
+        "ext-json": "^1.5",
+        "psr/http-message": "^1.0",
+        "psr/http-server-handler": "^1.0",
+        "zendframework/zend-diactoros": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "CEmerson\\Sevenambda\\Layer\\": "src"
+        }
+    },
+    "minimum-stability": "stable",
+    "config": {
+        "sort-packages": true
+    }
+}
