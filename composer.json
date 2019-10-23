@@ -1,6 +1,14 @@
 {
+    "name": "cemerson/7ambda",
+    "description": "A tool to generate PHP layers for AWS Lambda that support PSR-7 callbacks",
+    "type": "project",
+    "license": "MIT",
+    "minimum-stability": "stable",
     "require": {
         "roave/security-advisories": "dev-master@dev",
         "symfony/console": "^4.3"
+    },
+    "config": {
+        "sort-packages": true
     }
 }
