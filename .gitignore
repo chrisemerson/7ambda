@@ -1,8 +1,8 @@
 /.idea/
 /vendor/
 
-composer.lock
+/composer.lock
 
-/layer/*
-!/layer/.gitkeep
-
+/layer/composer.lock
+/layer/php
+/layer/vendor/
