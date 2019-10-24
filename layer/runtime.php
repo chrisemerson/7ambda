@@ -14,18 +14,18 @@
  *   - Encode PSR-7 response into Lambda compatible Response
  */
 
+use CEmerson\Sevenambda\Layer\LambdaPSR7Mapper;
 use CEmerson\Sevenambda\Layer\LambdaRuntime;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 $lambdaRuntime = new LambdaRuntime();
-$handler =  $lambdaRuntime->getHandler();
-
-//Extract file name and function
-[$handlerFile , $handlerFunction] = explode('.', $handler);
+$handlerClass =  $lambdaRuntime->getHandler();
 
 //Include the handler file
-require_once($handlerFile . '.php');
+require_once('index.php');
 
 //Poll for the next event to be processed
 while (true) {
@@ -41,11 +41,22 @@ while (true) {
     $eventPayload = $lambdaRuntime->getEventPayload();
 
     try {
-        //Handler is of format Filename.function
-        //Execute handler
-        $functionReturn = $handlerFunction($eventPayload);
-        $json = json_encode($functionReturn, true);
-        $lambdaRuntime->addToResponse($json);
+        //Handler is a reference to a class that implements RequestHandlerInterface
+        $handler = new $handlerClass();
+
+        if ($handler instanceof RequestHandlerInterface) {
+            $lambdaPSR7Mapper = new LambdaPSR7Mapper();
+
+            $request = $lambdaPSR7Mapper->mapLambdaRequestToPSR7ServerRequest($eventPayload, $data);
+
+            //Execute handler
+            /** @var ResponseInterface $response */
+            $response = $handler->handle($request);
+
+            $lambdaRuntime->addToResponse(
+                $lambdaPSR7Mapper->mapPSR7ResponseToLambdaResponse($response)
+            );
+        }
     } catch (Throwable $e) {
         error_log((string) $e);
     }
