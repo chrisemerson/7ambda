@@ -37,24 +37,19 @@ while (true) {
         continue;
     }
 
-    //Process the events
-    $eventPayload = $lambdaRuntime->getEventPayload();
-
     try {
         //Handler is a reference to a class that implements RequestHandlerInterface
         $handler = new $handlerClass();
 
         if ($handler instanceof RequestHandlerInterface) {
-            $lambdaPSR7Mapper = new LambdaPSR7Mapper();
-
-            $request = $lambdaPSR7Mapper->mapLambdaRequestToPSR7ServerRequest($eventPayload, $data);
+            $request = LambdaPSR7Mapper::mapLambdaRequestToPSR7ServerRequest($data);
 
             //Execute handler
             /** @var ResponseInterface $response */
             $response = $handler->handle($request);
 
             $lambdaRuntime->addToResponse(
-                $lambdaPSR7Mapper->mapPSR7ResponseToLambdaResponse($response)
+                LambdaPSR7Mapper::mapPSR7ResponseToLambdaResponse($response)
             );
         }
     } catch (Throwable $e) {

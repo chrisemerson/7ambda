@@ -33,8 +33,6 @@ final class LambdaRuntime
 
     private $rawEventData;
 
-    private $eventPayload;
-
     /** @var string */
     private $handler;
 
@@ -59,14 +57,6 @@ final class LambdaRuntime
     public function getHandler(): string
     {
         return $this->handler;
-    }
-
-    /**
-     * Get the current event payload
-     */
-    public function getEventPayload(): string
-    {
-        return $this->eventPayload;
     }
 
     /**
@@ -123,7 +113,6 @@ final class LambdaRuntime
         }
 
         $this->requestId = $this->rawEventData['headers']['lambda-runtime-aws-request-id'][0];
-        $this->eventPayload = $this->rawEventData['body'];
 
         return $this->rawEventData;
     }
