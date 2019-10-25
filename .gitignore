@@ -5,4 +5,5 @@
 
 /layer/composer.lock
 /layer/php
+/layer/.vagrant/
 /layer/vendor/
