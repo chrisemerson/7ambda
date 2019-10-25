@@ -48,7 +48,7 @@ class LambdaPSR7Mapper
 
         $queryStringParams = [];
 
-        if (count($event['queryStringParameters']) > 1) {
+        if (!empty($event['queryStringParameters']) && count($event['queryStringParameters']) > 1) {
             $queryString = implode('&', array_map(
                 function($key, $value) {
                     return $key . '=' . $value;
