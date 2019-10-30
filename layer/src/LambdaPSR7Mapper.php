@@ -10,11 +10,8 @@ use Zend\Diactoros\Uri;
 
 class LambdaPSR7Mapper
 {
-    private static $data;
-
     public static function mapLambdaRequestToPSR7ServerRequest($data): ServerRequestInterface
     {
-        self::$data = $data;
         $event = json_decode($data['body'], true);
 
         $uri = new Uri(
