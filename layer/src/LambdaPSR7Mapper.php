@@ -62,8 +62,11 @@ class LambdaPSR7Mapper
 
         $protocol = substr($event['requestContext']['protocol'], 5);
 
+        $serverParams = $_SERVER;
+        $serverParams['requestContext'] = $event['requestContext'];
+
         $serverRequest = new ServerRequest(
-            $event['requestContext'],
+            $serverParams,
             [],
             $uri,
             $event['httpMethod'],
