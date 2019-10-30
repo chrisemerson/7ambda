@@ -80,7 +80,9 @@ class LambdaPSR7Mapper
 
     public static function mapPSR7ResponseToLambdaResponse(ResponseInterface $response): string
     {
-        $response = $response->withAddedHeader('Content-Type', 'text/html');
+        if (!$response->hasHeader('Content-Type')) {
+            $response = $response->withHeader('Content-Type', 'text/html');
+        }
 
         $headers = [];
 
