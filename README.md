@@ -45,7 +45,7 @@ Build PHP:
     
 The configure line will depend on which extensions you want to use or enable, but it's important to include the
 `--enable-static=yes` and `--enable-shared=no` options to ensure extensions are compiled into the runtime itself. The
-`--disable-all` flag allows you to whitelist which extensions get build into the binary. Documentation on php.net can
+`--disable-all` flag allows you to whitelist which extensions get built into the binary. Documentation on php.net can
 help you figure out which flags and packages you need for different extensions.
 
     ./configure  --prefix=/home/ec2-user/php-7-bin/ --enable-static=yes --enable-shared=no --disable-all --enable-hash --enable-json --enable-libxml --enable-mbstring --enable-phar --enable-soap --enable-xml --with-curl --with-gd --with-zlib --with-openssl --without-pear --enable-ctype --enable-filter --enable-simplexml
