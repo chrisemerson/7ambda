@@ -25,7 +25,7 @@ class LambdaPSR7Mapper
         fwrite($bodyStream, $event['body'] ?? '');
         rewind($bodyStream);
 
-        $headers = $event['headers'];
+        $headers = $event['headers'] ?? [];
         $cookies = [];
 
         foreach ($headers as $headerName => $value) {
@@ -68,7 +68,7 @@ class LambdaPSR7Mapper
             $uri,
             $event['httpMethod'],
             new Stream($bodyStream),
-            $event['headers'],
+            $headers,
             $cookies,
             $queryStringParams,
             null,
