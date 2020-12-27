@@ -57,7 +57,7 @@ class LambdaPSR7Mapper
             parse_str($queryString, $queryStringParams);
         }
 
-        $protocol = substr($event['requestContext']['protocol'], 5);
+        $protocol = substr($event['requestContext']['protocol'] ?? '', 5);
 
         $serverParams = $_SERVER;
         $serverParams['requestContext'] = $event['requestContext'];
